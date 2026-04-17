@@ -1,0 +1,143 @@
+:root {
+    --bg-color: #f0f7f4;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --accent-color: #70a9a1;
+    --button-bg: #9ec1a3;
+    --toggle-bg: #ccc;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --text-color: #e0e0e0;
+    --accent-color: #84b8b0;
+    --button-bg: #4a6d50;
+    --toggle-bg: #444;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+header {
+    background-color: var(--accent-color);
+    padding: 1rem 5%;
+    color: white;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- INTERACTIVE THEME TOGGLE --- */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+
+.theme-switch input { display: none; }
+
+.slider {
+    background-color: var(--toggle-bg);
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+}
+
+.slider.round { border-radius: 34px; }
+
+.icon {
+    transition: .4s;
+    font-size: 1.2rem;
+}
+
+input:checked + .slider { background-color: #2c3e50; }
+
+input:checked + .slider .icon {
+    transform: translateX(26px);
+    content: '🌙';
+}
+
+/* --- DASHBOARD STYLES --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    padding: 30px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.mood-options { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
+
+.mood-btn {
+    font-size: 2.5rem;
+    background: var(--card-bg);
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mood-btn:hover { transform: scale(1.2) rotate(10deg); background-color: var(--button-bg); }
+
+.custom-mood-box { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+
+.custom-mood-box input { padding: 10px; border-radius: 20px; border: 1px solid #ccc; background: var(--bg-color); color: var(--text-color); }
+
+.small-btn { background: var(--accent-color); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+
+.mood-log-container { max-height: 150px; overflow-y: auto; text-align: left; border-top: 1px solid #ddd; padding-top: 10px; }
+
+#mood-history { list-style: none; padding: 0; }
+#mood-history li { padding: 8px 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+
+.center-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+textarea { width: 100%; max-width: 500px; height: 150px; margin: 15px 0; padding: 15px; border-radius: 12px; border: 2px dashed var(--accent-color); background: var(--bg-color); color: var(--text-color); resize: none; }
+
+.primary-btn { background-color: var(--button-bg); color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: bold; }
+
+#circle-container { height: 180px; display: flex; justify-content: center; align-items: center; }
+#breathing-circle { height: 60px; width: 60px; background-color: var(--button-bg); border-radius: 50%; transition: all 4s ease-in-out; }
+.expand { transform: scale(2.8); opacity: 0.7; }
+
+details { background: var(--bg-color); padding: 12px; border-radius: 10px; margin-bottom: 10px; cursor: pointer; text-align: left; }
+summary { font-weight: bold; color: var(--accent-color); }
