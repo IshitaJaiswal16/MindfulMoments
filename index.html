@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Moments Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Mindful Moments</h1>
+            <div class="theme-switch-wrapper">
+                <span id="mode-text">Light Mode</span>
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" onclick="toggleDarkMode()" />
+                    <div class="slider round">
+                        <span class="icon">☀️</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-grid">
+        <section class="card mood-card">
+            <h2>Daily Mood</h2>
+            <div class="mood-options">
+                <button class="mood-btn" onclick="logMood('😊', 'Happy')">😊</button>
+                <button class="mood-btn" onclick="logMood('😐', 'Neutral')">😐</button>
+                <button class="mood-btn" onclick="logMood('😔', 'Sad')">😔</button>
+                <button class="mood-btn" onclick="logMood('😠', 'Stressed')">😠</button>
+            </div>
+            
+            <div class="custom-mood-box">
+                <input type="text" id="custom-input" placeholder="Other feeling...">
+                <button class="small-btn" onclick="logCustomMood()">+</button>
+            </div>
+
+            <div class="mood-log-container">
+                <h3>History</h3>
+                <ul id="mood-history"></ul>
+            </div>
+        </section>
+
+        <section class="card breathing-card center-content">
+            <h2>Breathing Space</h2>
+            <div id="circle-container">
+                <div id="breathing-circle"></div>
+            </div>
+            <p id="instruction">Ready to relax?</p>
+            <button class="primary-btn" onclick="toggleBreathing()">Start</button>
+        </section>
+
+        <section class="card journal-card center-content">
+            <h2>Thought Journal</h2>
+            <p class="subtitle">What's on your mind?</p>
+            <textarea id="journal-input" placeholder="Type your heart out..."></textarea>
+            <button class="primary-btn" onclick="saveJournal()">Save Entry</button>
+            <p id="save-status"></p>
+        </section>
+
+        <section class="card resources-card">
+            <h2>Quick Support</h2>
+            <div class="accordion">
+                <details>
+                    <summary>🧘 5-Minute Meditation</summary>
+                    <p>Close your eyes. Focus on the sensation of air entering your nostrils and leaving your lips. Do this for 10 breaths.</p>
+                </details>
+                <details>
+                    <summary>📞 Who to call?</summary>
+                    <p>National Crisis Line: 988 (USA) or your local emergency number. You are never alone.</p>
+                </details>
+                <details>
+                    <summary>📖 Journal Prompt</summary>
+                    <p>Write about three things you are grateful for today, no matter how small they seem.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
