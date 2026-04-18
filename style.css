@@ -141,3 +141,60 @@ textarea { width: 100%; max-width: 500px; height: 150px; margin: 15px 0; padding
 
 details { background: var(--bg-color); padding: 12px; border-radius: 10px; margin-bottom: 10px; cursor: pointer; text-align: left; }
 summary { font-weight: bold; color: var(--accent-color); }
+
+/* Sleep Slider Customization */
+#sleep-slider {
+    width: 80%;
+    height: 10px;
+    border-radius: 5px;
+    appearance: none;
+    background: #ddd;
+    outline: none;
+    margin: 20px 0;
+}
+
+#sleep-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+}
+
+/* Sound Mixer Layout */
+.sound-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 15px 0;
+    padding: 10px;
+    background: var(--bg-color);
+    border-radius: 12px;
+}
+
+.sound-icon {
+    font-size: 1.5rem;
+    filter: grayscale(100%);
+    opacity: 0.4;
+    transition: all 0.3s ease;
+}
+
+/* The "Glow" effect for active sounds */
+.sound-active {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.2);
+    text-shadow: 0 0 10px var(--accent-color);
+}
+
+.volume-slider {
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+/* Ensure sliders match the theme colors */
+input[type=range] {
+    accent-color: var(--accent-color);
+}
