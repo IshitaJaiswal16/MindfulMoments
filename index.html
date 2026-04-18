@@ -77,6 +77,51 @@
                 </details>
             </div>
         </section>
+
+        
+        <section class="card center-content sleep-card">
+            <h2>Sleep Quality</h2>
+            <div id="sleep-emoji" style="font-size: 3.5rem; margin: 10px 0;">😴</div>
+            <input type="range" id="sleep-slider" min="0" max="12" value="7" oninput="updateSleep()">
+            <p id="sleep-display" style="font-size: 1.2rem; font-weight: bold;">7 Hours Slept</p>
+            <p id="sleep-status" style="font-size: 0.9rem; opacity: 0.8;">That's a decent start.</p>
+        </section>
+
+        <section class="card focus-card">
+            <h2>Focus Sound Mixer</h2>
+            <p class="subtitle">Blend your perfect workspace</p>
+            
+            <button id="audio-unlock" class="primary-btn" onclick="unlockAudio()" style="margin-bottom: 15px; width: 100%;">
+                🔈 Enable Sound Mixer
+            </button>
+
+            <div id="mixer-controls" style="opacity: 0.5; pointer-events: none; transition: opacity 0.3s ease;">
+                <div class="sound-row">
+                    <span class="sound-icon" id="icon-rain">🌧️</span>
+                    <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="0" oninput="adjustVolume('rain', this.value)">
+                    <audio id="audio-rain" loop src="rain.mp3"></audio>
+                </div>
+
+                <div class="sound-row">
+                    <span class="sound-icon" id="icon-wind">🌬️</span>
+                    <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="0" oninput="adjustVolume('wind', this.value)">
+                    <audio id="audio-wind" loop src="wind.mp3"></audio>
+                </div>
+
+                <div class="sound-row">
+                    <span class="sound-icon" id="icon-ocean">🌊</span>
+                    <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="0" oninput="adjustVolume('ocean', this.value)">
+                    <audio id="audio-ocean" loop src="ocean.mp3"></audio>
+                </div>
+
+                <div class="sound-row">
+                    <span class="sound-icon" id="icon-white">🤍</span>
+                    <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="0" oninput="adjustVolume('white', this.value)">
+                    <audio id="audio-white" loop src="white_noise.mp3"></audio>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <script src="script.js"></script>
