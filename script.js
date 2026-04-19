@@ -15,15 +15,19 @@ function toggleDarkMode() {
         icon.innerText = "☀️";
     }
 }
-
-// --- MOOD LOGGING ---
+// --- MOOD LOGGING (Updated with Date Grouping) ---
 function logMood(emoji, label) {
     const now = new Date();
     const timeStr = now.getHours().toString().padStart(2, '0') + ":" + 
                     now.getMinutes().toString().padStart(2, '0');
+    // Save the date in a readable format
+    const dateStr = now.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
     
-    const entry = { emoji, label, time: timeStr };
-    saveMoodToHistory(entry);
+    const entry = { emoji, label, time: timeStr, date: dateStr };
+    let history = JSON.parse(localStorage.getItem('moodHistory')) || [];
+    history.unshift(entry); 
+    localStorage.setItem('moodHistory', JSON.stringify(history));
+    renderMoodHistory();
 }
 
 function logCustomMood() {
@@ -34,58 +38,101 @@ function logCustomMood() {
     }
 }
 
-function saveMoodToHistory(entry) {
-    let history = JSON.parse(localStorage.getItem('moodHistory')) || [];
-    history.unshift(entry); 
-    localStorage.setItem('moodHistory', JSON.stringify(history));
-    renderMoodHistory();
-}
-
 function renderMoodHistory() {
     const list = document.getElementById('mood-history');
     const history = JSON.parse(localStorage.getItem('moodHistory')) || [];
-    list.innerHTML = history.slice(0, 10).map(item => 
-        `<li><strong>${item.time}</strong> - ${item.emoji} ${item.label}</li>`
-    ).join('');
+    
+    let html = "";
+    let lastDate = "";
+
+    history.forEach(item => {
+        // Only show the date header if it's different from the previous item
+        const currentDate = item.date || "Past Entry";
+        if (currentDate !== lastDate) {
+            html += `<li style="font-weight: bold; color: var(--accent-color); margin-top: 12px; border-bottom: none; list-style: none;">📅 ${currentDate}</li>`;
+            lastDate = currentDate;
+        }
+        html += `<li><strong>${item.time}</strong> - ${item.emoji} ${item.label}</li>`;
+    });
+
+    list.innerHTML = html;
 }
 
-// --- JOURNAL LOGIC ---
+// --- JOURNAL LOGIC (Updated to save History List) ---
 function saveJournal() {
-    const text = document.getElementById('journal-input').value;
-    const status = document.getElementById('save-status');
-    localStorage.setItem('savedJournal', text);
-    status.innerText = "Entry saved! ✨";
-    setTimeout(() => { status.innerText = ""; }, 3000);
+    const input = document.getElementById('journal-input');
+    const text = input.value.trim();
+    
+    if (!text) return;
+
+    const now = new Date();
+    const dateStr = now.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    const timeStr = now.getHours().toString().padStart(2, '0') + ":" + 
+                    now.getMinutes().toString().padStart(2, '0');
+
+    const entry = { text, date: dateStr, time: timeStr };
+    
+    let journalHistory = JSON.parse(localStorage.getItem('journalHistory')) || [];
+    journalHistory.unshift(entry);
+    localStorage.setItem('journalHistory', JSON.stringify(journalHistory));
+    
+    input.value = ""; // Clear the box after saving
+    renderJournalHistory();
 }
 
-// --- BREATHING LOGIC ---
+function renderJournalHistory() {
+    const list = document.getElementById('journal-history');
+    const history = JSON.parse(localStorage.getItem('journalHistory')) || [];
+    
+    list.innerHTML = history.map(item => `
+        <li style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; list-style: none;">
+            <small style="color: var(--accent-color); font-weight: bold;">${item.date} @ ${item.time}</small>
+            <p style="margin: 5px 0; line-height: 1.4;">${item.text}</p>
+        </li>
+    `).join('');
+}
+
+// --- BREATHING LOGIC (Fixed Toggle) ---
 let isBreathing = false;
-let interval;
+let breathInterval;
+
 function toggleBreathing() {
     const circle = document.getElementById('breathing-circle');
     const instruction = document.getElementById('instruction');
+    const btn = document.querySelector('.breathing-card .primary-btn'); 
+    
     if (!isBreathing) {
         isBreathing = true;
+        btn.innerText = "Stop"; 
+        btn.style.background = "#e74c3c"; 
+        
         circle.classList.add('expand');
         instruction.innerText = "Breathe in...";
-        interval = setInterval(() => {
+        
+        breathInterval = setInterval(() => {
             circle.classList.toggle('expand');
             instruction.innerText = circle.classList.contains('expand') ? "Breathe in..." : "Breathe out...";
         }, 4000);
     } else {
         isBreathing = false;
-        clearInterval(interval);
+        btn.innerText = "Start";
+        btn.style.background = "var(--button-bg)"; 
+        
+        clearInterval(breathInterval);
         circle.classList.remove('expand');
-        instruction.innerText = "Exercise stopped.";
+        instruction.innerText = "Ready to start again?";
     }
 }
 
-// --- INITIAL LOAD ---
+// --- INITIAL LOAD (Updated) ---
 window.onload = () => {
     renderMoodHistory();
-    const savedText = localStorage.getItem('savedJournal');
-    if (savedText) document.getElementById('journal-input').value = savedText;
+    renderJournalHistory();
+    // If you have these functions, keep them active:
+    if (typeof updateSleep === "function") updateSleep();
+    if (typeof updateWaterUI === "function") updateWaterUI();
 };
+
 // --- SLEEP TRACKER LOGIC ---
 function updateSleep() {
     const val = document.getElementById('sleep-slider').value;
