@@ -57,26 +57,13 @@
             <p class="subtitle">What's on your mind?</p>
             <textarea id="journal-input" placeholder="Type your heart out..."></textarea>
             <button class="primary-btn" onclick="saveJournal()">Save Entry</button>
-            <p id="save-status"></p>
-        </section>
-
-        <section class="card resources-card">
-            <h2>Quick Support</h2>
-            <div class="accordion">
-                <details>
-                    <summary>🧘 5-Minute Meditation</summary>
-                    <p>Close your eyes. Focus on the sensation of air entering your nostrils and leaving your lips. Do this for 10 breaths.</p>
-                </details>
-                <details>
-                    <summary>📞 Who to call?</summary>
-                    <p>National Crisis Line: 988 (USA) or your local emergency number. You are never alone.</p>
-                </details>
-                <details>
-                    <summary>📖 Journal Prompt</summary>
-                    <p>Write about three things you are grateful for today, no matter how small they seem.</p>
-                </details>
+            
+            <div class="journal-log-container" style="margin-top: 20px; width: 100%; border-top: 1px solid #ddd; padding-top: 15px; text-align: left;">
+                <h4 style="margin-bottom: 10px;">Past Entries</h4>
+                <ul id="journal-history" style="list-style: none; padding: 0; font-size: 0.9rem; max-height: 200px; overflow-y: auto;"></ul>
             </div>
         </section>
+
 
         
         <section class="card center-content sleep-card">
@@ -119,6 +106,25 @@
                     <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="0" oninput="adjustVolume('white', this.value)">
                     <audio id="audio-white" loop src="white_noise.mp3"></audio>
                 </div>
+            </div>
+        </section>
+
+        
+        <section class="card resources-card">
+            <h2>Quick Support</h2>
+            <div class="accordion">
+                <details>
+                    <summary>🧘 5-Minute Meditation</summary>
+                    <p>Close your eyes. Focus on the sensation of air entering your nostrils and leaving your lips. Do this for 10 breaths.</p>
+                </details>
+                <details>
+                    <summary>📞 Who to call?</summary>
+                    <p>National Crisis Line: 988 (USA) or your local emergency number. You are never alone.</p>
+                </details>
+                <details>
+                    <summary>📖 Journal Prompt</summary>
+                    <p>Write about three things you are grateful for today, no matter how small they seem.</p>
+                </details>
             </div>
         </section>
 
